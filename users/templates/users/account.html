@@ -1,0 +1,33 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<main class="">
+    <div class="container">
+        <div class="grid grid-cols-3">
+            <div class="">
+                <div class="text-center">
+                    <div class="">
+                        <a class="  text-blue-500 hover:text-blue-400" href="{% url 'edit-account' %}"><i class=""></i>
+                            Edit</a>
+                        <img class="" src="{{profile.imageURL}}" />
+                        <h2 class="">{{profile.name}}</h2>
+                        <p class="">{{profile.short_into}}</p>
+                        <p class="">Based in {{profile.location}}</p>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="">
+                <div class="">
+                    <h3 class="">About Me</h3>
+                    <p class="">{{profile.bio}}</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}
