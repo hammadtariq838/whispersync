@@ -12,7 +12,6 @@ def createProfile(sender, instance, created, **kwargs):
         user = instance
         Profile.objects.create(
             user=user,
-            email=user.email,
             name=user.name,
         )
 
@@ -23,7 +22,6 @@ def updateUser(sender, instance, created, **kwargs):
 
     if created == False:
         user.name = profile.name
-        user.email = profile.email
         user.save()
 
 
