@@ -1,0 +1,63 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-5-strong px-5 py-2">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+            data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <a class="navbar-brand mt-2 mt-lg-0 fw-bold text-primary" href="/">
+                WhisperSync
+            </a>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Team</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- if user is authenticated -->
+        {% if user.is_authenticated != True %}
+
+
+        <ul class="navbar-nav d-flex flex-row spa
+            <li class=" nav-item me-3 me-lg-0">
+            <a class="nav-link text-primary" href="{% url 'account_login' %}">
+                <i class="fas fa-sign-in-alt text-primary"></i>
+                Sign In
+            </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-primary" href="{% url 'account_signup' %}">
+                    <i class="fas fa-user-plus text-primary"></i>
+                    Sign Up
+                </a>
+            </li>
+        </ul>
+        {% else %}
+
+        <div class="dropdown">
+            <a class="dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdownMenuAvatar" role="button"
+                data-mdb-toggle="dropdown" aria-expanded="false">
+                <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" class="rounded-circle" height="30"
+                    alt="Black and White Portrait of a Man" loading="lazy" />
+            </a>
+
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li>
+                    <a class="dropdown-item" href="#">My profile</a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="#">Settings</a>
+                </li>
+                <li><a class="dropdown-item" href="{% url 'account_logout' %}">Sign Out</a></li>
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+    </div>
+</nav>

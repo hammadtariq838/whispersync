@@ -1,24 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "account/base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verify Your E-mail Address | WhisperSync</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-
-
-<body>
-    <div class="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-        <div class="sm:mx-auto sm:w-full sm:max-w-md">
-            <h1 class="text-3xl font-bold mb-4">Verify Your E-mail Address</h1>
+{% block content %}
+  <div class="container my-5">
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <div class="card">
+          <div class="card-body">
+            <h1 class="card-title">Verify Your E-mail Address</h1>
+            <p class="card-text">
+                We have sent an e-mail to you for verification. Follow the link provided to finalize the signup process. If you do not see the verification e-mail in your main inbox, check your spam folder. Please contact us if you do not receive the verification e-mail within a few minutes.
+            </p>
+          </div>
         </div>
-        <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-            <p class="mb-4">We have sent an e-mail to you for verification. Follow the link provided to finalize the
-                signup
-                process. If you do not see the verification e-mail in your main inbox, check your spam folder. Please
-                contact us if you do not receive the verification e-mail within a few minutes.</p>
-        </div>
+      </div>
     </div>
-</body>
+  </div>
+{% endblock %}

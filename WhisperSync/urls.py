@@ -7,7 +7,7 @@ from django.conf.urls.static import static
 
 
 def profile_view(request):
-    return render(request, 'base.html')
+    return render(request, 'home.html')
 
 
 urlpatterns = [
