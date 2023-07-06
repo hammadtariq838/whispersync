@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Welcome to WhisperSync</h1>
+    <p>WhisperSync is a powerful and innovative Django-based web application for seamless subtitling and captioning of
+        YouTube videos.</p>
+    <p>With the integration of the Whisper API for transcription and translation, this platform offers a comprehensive
+        solution for generating subtitle files in the widely supported .srt format.</p>
+    <!-- Add your home page content here -->
+    <p>Wanna get your subtitles done? <a href="{% url 'youtube_info' %}">Click here</a> to get started!</p>
+</div>
+{% endblock %}

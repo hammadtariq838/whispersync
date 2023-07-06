@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card mt-5">
+
+                <div class="card-header">
+                    <h4>Generate Subtitles</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="{% url 'verify_info' %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="url" class="form-label">YouTube Video URL:</label>
+                            <input type="text" class="form-control" id="url" name="url"
+                                placeholder="Enter YouTube video URL" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Proceed</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

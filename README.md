@@ -10,9 +10,3 @@
 - **User Management:** WhisperSync provides a robust user management system, allowing users to sign up, create profiles, and store their demographic data. Users are granted pre-loaded credits to initiate the subtitling process effortlessly.
 - **Video Management:** Users can store their YouTube video URLs within the application, making it convenient to manage and access their video collection. The platform supports scheduling the processing of videos, ensuring flexibility and convenience.
 - **Enhanced User Experience:** WhisperSync is built with a focus on delivering a top-notch user experience. From a user-friendly interface to efficient processing and reliable results, the application strives to provide a seamless and satisfying subtitling experience.
-
-## Contribute
-
-We welcome contributions from the open-source community to enhance and improve WhisperSync. If you are passionate about web development, Django, or subtitling technologies, feel free to contribute by submitting bug reports, feature requests, or pull requests.
-
-Get started with WhisperSync and revolutionize the way you create subtitles for YouTube videos. Empower your content with accurate and professionally crafted subtitles using this comprehensive Django-based subtitling web application.

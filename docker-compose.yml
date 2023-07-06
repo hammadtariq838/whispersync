@@ -1,0 +1,63 @@
+version: "3.8"
+
+services:
+    django:
+        build: .
+        container_name: django
+        command: python manage.py runserver 0.0.0.0:8000
+        volumes:
+            - .:/usr/src/app/
+        ports:
+            - "8000:8000"
+            - "5432:5432"
+        environment:
+            - DEBUG=1
+            - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1] django
+            - CELERY_BROKER=redis://redis:6379/0
+            - CELERY_BACKEND=redis://redis:6379/0
+            - SECRET_KEY=django-insecure-h!)#@wv3qz8drcw8=dd1+le*fuybpd^x#07g_m@nfvocq&$dm3
+            - STRIPE_PUBLISHABLE_KEY=pk_test_51NGXBQBCQIhTphlnSfv0VVSQLZMa2Md38IYSr0b3RRAC6TwSKzdXO1tT9c3dDgPcbHuIFZT3RW8qNtpNgNaZLWpV008CKEhYeR
+            - STRIPE_SECRET_KEY=sk_test_51NGXBQBCQIhTphlnhfJDfJJEt0vjR9dKBJH6nEZ8Rtskzk4nlY0Wm3mWPX213pWT89tplKiiYCawKK2ZeMvJPM5f00EvuV50It
+            - STRIPE_WEBHOOK_SECRET=whsec_4d69d6338abeceaa607c399a270de0a161019c6d59f56c776c6f4115f223aa10
+            - POSTGRES_DB=whispersync-minimal
+            - POSTGRES_HOST=pgdb
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=Grant123
+            - POSTGRES_PORT=5432
+            - WHISPER_API_KEY=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
+
+        depends_on:
+            - redis
+            - pgdb
+    celery:
+        build: .
+        command: celery -A whispersync worker -l INFO
+        volumes:
+            - .:/usr/src/app
+        environment:
+            - DEBUG=1
+            - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
+            - CELERY_BROKER=redis://redis:6379/0
+            - CELERY_BACKEND=redis://redis:6379/0
+        depends_on:
+            - django
+            - redis
+    pgdb:
+        image: postgres
+        container_name: pgdb
+        environment:
+            - POSTGRES_DB=whispersync-minimal
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=Grant123
+        volumes:
+            - pgdata:/var/lib/postgresql/data/
+    redis:
+        image: "redis:alpine"
+    stripe:
+        image: stripe/stripe-cli
+        command: listen --forward-to django:8000/webhooks/stripe/
+        environment:
+            - STRIPE_API_KEY=sk_test_51NGXBQBCQIhTphlnhfJDfJJEt0vjR9dKBJH6nEZ8Rtskzk4nlY0Wm3mWPX213pWT89tplKiiYCawKK2ZeMvJPM5f00EvuV50It
+
+volumes:
+    pgdata:

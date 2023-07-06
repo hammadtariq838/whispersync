@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+<div class="container">
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card mt-5">
+                <div class="card-header text-center">
+                    <h4>Your Wallet</h4>
+                </div>
+                <div class="card-body">
+                    <p class="text-center">Available Credits: {{ user.profile.get_display_credits }}$</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <!-- display the user credits -->
+        <div class="col-md-6">
+            <div class="card mt-5">
+                <div class="card-header text-center">
+                    <h4>Purchase Credits</h4>
+                </div>
+                <div class="card-body">
+                    <form action="{% url 'create-checkout-session' %}" method="POST">
+                        {% csrf_token %}
+                        {% for field in form %}
+                        <div class="form-group">
+                            {{ field | as_crispy_field }}
+                        </div>
+                        {% endfor %}
+
+                        <button type="submit" class="btn btn-primary">Purchase</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

@@ -1,54 +1,39 @@
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
-from django.utils.translation import gettext_lazy as _
 from django.db import models
-from django.utils import timezone
-
-import uuid
+from django.contrib.auth.models import AbstractUser, BaseUserManager, PermissionsMixin
 
 
 class UserManager(BaseUserManager):
-
-    def _create_user(self, email, password, is_staff, is_superuser, **extra_fields):
+    def create_user(self, email, name, password=None):
         if not email:
-            raise ValueError('Users must have an email address')
-        now = timezone.now()
-        email = self.normalize_email(email)
-        user = self.model(
-            email=email,
-            is_staff=is_staff,
-            is_active=True,
-            is_superuser=is_superuser,
-            last_login=now,
-            date_joined=now,
-            **extra_fields
-        )
+            raise ValueError("Users must have an email address")
+        user = self.model(email=self.normalize_email(email), name=name)
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_user(self, email, password, **extra_fields):
-        return self._create_user(email, password, False, False, **extra_fields)
-
-    def create_superuser(self, email, password, **extra_fields):
-        user = self._create_user(email, password, True, True, **extra_fields)
+    def create_superuser(self, email, name, password):
+        user = self.create_user(email=self.normalize_email(
+            email), name=name, password=password)
+        user.is_admin = True
+        user.is_staff = True
+        user.is_superuser = True
         user.save(using=self._db)
         return user
 
 
-class User(AbstractBaseUser, PermissionsMixin):
-    name = models.CharField(max_length=150, null=True, blank=True)
+class User(AbstractUser, PermissionsMixin):
+    name = models.CharField(max_length=150, blank=True)
+    first_name = None
+    last_name = None
+    username = None
     email = models.EmailField(max_length=150, unique=True)
-    is_staff = models.BooleanField(default=False)
-    is_superuser = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=True)
-    last_login = models.DateTimeField(null=True, blank=True)
-    date_joined = models.DateTimeField(auto_now_add=True)
-
     USERNAME_FIELD = 'email'
-    EMAIL_FIELD = 'email'
     REQUIRED_FIELDS = ['name']
 
     objects = UserManager()
+
+    def __str__(self):
+        return self.email
 
 
 class Profile(models.Model):
@@ -57,19 +42,20 @@ class Profile(models.Model):
     name = models.CharField(max_length=150, blank=True, null=True)
     location = models.CharField(max_length=150, blank=True, null=True)
     short_intro = models.CharField(max_length=150, blank=True, null=True)
-    bio = models.TextField(blank=True, null=True)
     credits = models.IntegerField(default=10000)  # 10,000 credits -> 100 USD
     profile_image = models.ImageField(
         null=True, blank=True, upload_to='profiles/', default="profiles/user-default.png")
     created = models.DateTimeField(auto_now_add=True)
-    id = models.UUIDField(default=uuid.uuid4, unique=True,
-                          primary_key=True, editable=False)
 
     def __str__(self):
-        return str(self.user)
+        return str(self.name)
 
     class Meta:
         ordering = ['created']
+
+    @property
+    def get_display_credits(self):
+        return "{0:.2f}".format(self.credits / 100)
 
     @property
     def imageURL(self):

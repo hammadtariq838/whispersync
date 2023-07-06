@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card mt-5">
+                <div class="card-header">
+                    <h4>Verify the Information</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="{{ thumbnail_url }}" class="img-thumbnail" alt="Video Thumbnail">
+                        </div>
+                        <div class="col-md-8">
+                            <h5 class="card-title">{{ title }}</h5>
+                            <p class="card-text">Video Length: {{ length }}</p>
+                            <p class="card-text">Cost: <strong>{{ dollars }}$</strong></p>
+                            <!-- show the go back option and the proceed option in the same row -->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <a href="{% url 'home' %}" class="btn btn-secondary">Go Back</a>
+                                </div>
+                                <div class="col-md-6">
+                                    <form method="post" action="{% url 'download_audio' %}">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="url" value="{{ url }}">
+                                        <input type="hidden" name="credits" value="{{ credits }}">
+                                        <button type="submit" class="btn btn-primary">Proceed with Payment
+                                            (<strong>{{dollars }}$</strong>)</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
