@@ -28,6 +28,7 @@ services:
         depends_on:
             - redis
             - pgdb
+
     celery:
         build: .
         command: celery -A whispersync worker -l INFO

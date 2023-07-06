@@ -67,6 +67,9 @@
                 <ul class="navbar-nav me-auto">
                     {% if user.is_authenticated %}
                     <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}">Transcribe Video</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'purchase-credits' %}">Purchase Credits</a>
                     </li>
                     <li class="nav-item">
