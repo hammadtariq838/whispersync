@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="card mt-5">
+        <div class="card-header">
+            <h4>Subtitle Details</h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="{{ subtitle.thumbnail_url }}" class="img-thumbnail" alt="Video Thumbnail">
+                </div>
+                <div class="col-md-8">
+                    <h5 class="card-title">{{ subtitle.title }}</h5>
+                    <p class="card-text">Length: {{ subtitle.get_display_length }}</p>
+                    <p class="card-text">Status: {{ subtitle.status }}</p>
+                    <p class="card-text">Cost: {{ subtitle.get_display_cost }} $</p>
+                    <p class="card-text">Language: {{ subtitle.language }}</p>
+                    <p class="card-text">Created: {{ subtitle.created_at }}</p>
+                    {% if subtitle.error %}
+                    <p class="card-text">Error: {{ subtitle.error }}</p>
+                    {% endif %}
+                    <!-- provide button to go back to transactions -->
+                    <a href="{% url 'transactions' %}" class="btn btn-secondary">Back</a>
+                    {% if subtitle.file_path %}
+                    <!-- subtitle.file_path will be served using static -->
+                    <a href="{% static subtitle.file_path %}" class="btn btn-primary">Download</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

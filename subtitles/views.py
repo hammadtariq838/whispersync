@@ -1,6 +1,4 @@
-import os
 from django.conf import settings
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -8,16 +6,35 @@ import yt_dlp
 
 from subtitles.models import Subtitle
 from .utils import convert_seconds_to_hms
-import openai
-from .tasks import download_audio
-
-
-openai.api_key = settings.WHISPER_API_KEY
+from .tasks import generate_subtitle
 
 
 @login_required
 def home(request):
     return render(request, 'subtitles/home.html')
+
+
+@login_required
+def transactions(request):
+    user = request.user
+    subtitles = Subtitle.objects.filter(user=user).order_by('-created_at')
+    context = {
+        'subtitles': subtitles,
+    }
+    return render(request, 'subtitles/transactions.html', context)
+
+
+@login_required
+def subtitle_details(request, subtitle_id):
+    user = request.user
+    subtitle = Subtitle.objects.get(id=subtitle_id)
+    if subtitle.user != user:
+        messages.error(request, 'You are not authorized to view this page')
+        return redirect('home')
+    context = {
+        'subtitle': subtitle,
+    }
+    return render(request, 'subtitles/subtitle_details.html', context)
 
 
 @login_required
@@ -57,7 +74,7 @@ def youtube_info(request):
 
 
 @login_required
-def download_subtitles(request):
+def download_subtitle(request):
     url = request.POST.get('url')
     # verify that the user has enough credits
     credits = int(request.POST.get('credits'))
@@ -92,8 +109,7 @@ def download_subtitles(request):
                 )
                 subtitle_id = subtitle.id
 
-                # call the celery task to download the audio; it will handle the payment
-                download_audio.delay(subtitle_id)
+                generate_subtitle.delay(subtitle_id)  # celery task
 
                 messages.success(
                     request, 'Your video has been successfully scheduled for processing')
@@ -108,36 +124,3 @@ def download_subtitles(request):
         messages.error(
             request, 'Failed to get video info. Please try again.')
         return redirect('home')
-
-
-# def download_audio(request):
-#     if request.method == 'POST':
-#         url = request.POST.get('url')
-#         try:
-#             ydl_opts = {
-#                 'format': 'bestaudio/best',
-#                 'outtmpl': f'{settings.MEDIA_ROOT}/%(title)s.%(ext)s',
-#                 'postprocessors': [{
-#                     'key': 'FFmpegExtractAudio',
-#                     'preferredcodec': 'aac',
-#                     'preferredquality': '32',
-#                 }],
-#                 'quiet': True,
-#                 'ignoreerrors': True,
-#             }
-
-#             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-#                 info = ydl.extract_info(url, download=True)
-#                 audio_file_path = ydl.prepare_filename(info)
-#                 print(audio_file_path)
-#                 base, _ = os.path.splitext(audio_file_path)
-#                 new_file = base + '.m4a'
-#                 print(new_file)
-
-#             return HttpResponse(audio_file_path)
-#         except Exception as e:
-#             print(e)
-#             error_message = 'Failed to download audio'
-#             return render(request, 'subtitles/download_audio.html', {'error_message': error_message})
-#     else:
-#         return render(request, 'subtitles/download_audio.html')

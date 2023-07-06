@@ -23,7 +23,7 @@
                                     <a href="{% url 'home' %}" class="btn btn-secondary">Go Back</a>
                                 </div>
                                 <div class="col-md-6">
-                                    <form method="post" action="{% url 'download_audio' %}">
+                                    <form method="post" action="{% url 'download_subtitle' %}">
                                         {% csrf_token %}
                                         <input type="hidden" name="url" value="{{ url }}">
                                         <input type="hidden" name="credits" value="{{ credits }}">

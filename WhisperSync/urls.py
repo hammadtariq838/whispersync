@@ -13,8 +13,6 @@ urlpatterns = [
 
     path('dashboard/', TemplateView.as_view(template_name='dashboard.html'),
          name='dashboard'),
-    path('transactions/', TemplateView.as_view(template_name='transactions.html'),
-         name='transactions'),
 
 
     path(
