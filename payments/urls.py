@@ -1,6 +1,7 @@
 from .views import (
     SuccessView,
     CancelView,
+    transactions,
     stripe_webhook,
     purchase_credits,
     create_checkout_session,
@@ -10,6 +11,7 @@ from payments import views
 
 
 urlpatterns = [
+    path('transactions/', transactions, name='transactions'),
     path('purchase-credits/', purchase_credits, name='purchase-credits'),
     path('create-checkout-session/', create_checkout_session,
          name='create-checkout-session'),

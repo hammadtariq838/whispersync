@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>My Transactions</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Transaction ID</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Timestamp</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for payment in payments %}
+            <tr>
+                <td>{{ payment.stripe_charge_id }}</td>
+                <td>{{ payment.get_display_amount }}$</td>
+                <td>{{ payment.timestamp | timesince }} ago</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3">No transactions found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

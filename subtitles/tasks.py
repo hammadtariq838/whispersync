@@ -17,9 +17,6 @@ def generate_subtitle(subtitle_id):
     subtitle = Subtitle.objects.get(id=subtitle_id)
     profile = Profile.objects.get(user=subtitle.user)
 
-    subtitle.status = 'downloading'
-    subtitle.save()
-
     audio_file_path = download_audio(subtitle)
     if audio_file_path:
         subtitle.status = 'transcribing'
@@ -68,8 +65,9 @@ def transcribe_audio(audio_file_path, subtitle):
 
         return transcript
     except Exception as e:
+        print(e)
         subtitle.status = 'failed'
-        subtitle.error = str(e)
+        subtitle.error = 'Failed to transcribe audio'
         subtitle.save()
         return None
 
@@ -82,7 +80,7 @@ def download_audio(subtitle_obj):
             'postprocessors': [{
                 'key': 'FFmpegExtractAudio',
                 'preferredcodec': 'mp3',
-                'preferredquality': '256',
+                'preferredquality': '64',
             }],
             'quiet': True,
             'ignoreerrors': True,
@@ -97,7 +95,8 @@ def download_audio(subtitle_obj):
         return new_file
 
     except Exception as e:
+        print(e)
         subtitle_obj.status = 'failed'
-        subtitle_obj.error = str(e)
+        subtitle_obj.error = 'Failed to download audio'
         subtitle_obj.save()
         return None
