@@ -15,13 +15,13 @@ def home(request):
 
 
 @login_required
-def transactions(request):
+def subtitles(request):
     user = request.user
     subtitles = Subtitle.objects.filter(user=user).order_by('-created_at')
     context = {
         'subtitles': subtitles,
     }
-    return render(request, 'subtitles/transactions.html', context)
+    return render(request, 'subtitles/subtitles.html', context)
 
 
 @login_required
@@ -106,6 +106,7 @@ def download_subtitle(request):
                     length=info['duration'],
                     thumbnail_url=info['thumbnail'],
                     cost=credits,
+                    status='scheduled'
                 )
                 subtitle_id = subtitle.id
 
@@ -113,7 +114,7 @@ def download_subtitle(request):
 
                 messages.success(
                     request, 'Your video has been successfully scheduled for processing')
-                return redirect('transactions')
+                return redirect('subtitles')
             except yt_dlp.DownloadError as e:
                 print(f"Error extracting video info: {e}")
                 messages.error(

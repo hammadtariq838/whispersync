@@ -16,6 +16,11 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 User = get_user_model()
 
 
+def transactions(request):
+    payments = Payment.objects.filter(user=request.user).order_by('-timestamp')
+    return render(request, 'payments/transactions.html', {'payments': payments})
+
+
 class SuccessView(TemplateView):
     template_name = "payments/success.html"
 
