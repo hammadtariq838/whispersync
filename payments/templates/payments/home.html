@@ -15,7 +15,7 @@
             {% for payment in payments %}
             <tr>
                 <td>{{ payment.stripe_charge_id }}</td>
-                <td>{{ payment.get_display_amount }}$</td>
+                <td>{{ payment.get_display_amount }} $</td>
                 <td>{{ payment.timestamp | timesince }} ago</td>
             </tr>
             {% empty %}

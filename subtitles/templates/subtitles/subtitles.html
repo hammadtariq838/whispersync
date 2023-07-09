@@ -12,7 +12,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ subtitle.title|truncatechars:36 }}</h5>
                     <p class="card-text">Length: {{ subtitle.get_display_length }}</p>
-                    <p class="card-text">Status: {{ subtitle.status }}</p>
+                    <p class="card-text">Status: <strong class="text-secondary text-uppercase">{{ subtitle.status}}</strong>
                     <p class="card-text">Cost: {{ subtitle.get_display_cost }} $</p>
                     <p class="card-text">Language: {{ subtitle.language }}</p>
                     <a href="{% url 'subtitle_details' subtitle.id %}" class="btn btn-primary">View Details</a>

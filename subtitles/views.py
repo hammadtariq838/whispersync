@@ -1,4 +1,3 @@
-from django.conf import settings
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -10,8 +9,42 @@ from .tasks import generate_subtitle
 
 
 @login_required
-def home(request):
-    return render(request, 'subtitles/home.html')
+def youtube_info(request):
+    if request.method == 'POST':
+        url = request.POST.get('url')
+        try:
+            ydl_opts = {
+                'quiet': True,
+                'no_warnings': True,
+                'skip_download': True,
+                'ignoreerrors': True,
+                'extract_flat': 'in_playlist',
+                'forcejson': True,
+                'simulate': True
+            }
+
+            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                try:
+                    info = ydl.extract_info(url, download=False)
+                    context = {
+                        'title': info['title'],
+                        'length': convert_seconds_to_hms(info['duration']),
+                        'thumbnail_url': info['thumbnail'],
+                        'url': url,
+                        'dollars': (int(info['duration'] / 10) + 1) / 100,
+                        'credits': int(info['duration'] / 10) + 1,
+                    }
+                    return render(request, 'subtitles/youtube_info.html', context)
+                except yt_dlp.DownloadError as e:
+                    print(f"Error extracting video info: {e}")
+                    error_message = 'Failed to get video info'
+                    return render(request, 'subtitles/youtube_info.html', {'error_message': error_message})
+        except Exception as e:
+            print(e)
+            error_message = 'Failed to get video info'
+            return render(request, 'subtitles/youtube_info.html', {'error_message': error_message})
+    else:
+        return render(request, 'subtitles/home.html')
 
 
 @login_required
@@ -30,47 +63,11 @@ def subtitle_details(request, subtitle_id):
     subtitle = Subtitle.objects.get(id=subtitle_id)
     if subtitle.user != user:
         messages.error(request, 'You are not authorized to view this page')
-        return redirect('home')
+        return redirect('youtube_info')
     context = {
         'subtitle': subtitle,
     }
     return render(request, 'subtitles/subtitle_details.html', context)
-
-
-@login_required
-def youtube_info(request):
-    url = request.POST.get('url')
-    try:
-        ydl_opts = {
-            'quiet': True,
-            'no_warnings': True,
-            'skip_download': True,
-            'ignoreerrors': True,
-            'extract_flat': 'in_playlist',
-            'forcejson': True,
-            'simulate': True
-        }
-
-        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            try:
-                info = ydl.extract_info(url, download=False)
-                context = {
-                    'title': info['title'],
-                    'length': convert_seconds_to_hms(info['duration']),
-                    'thumbnail_url': info['thumbnail'],
-                    'url': url,
-                    'dollars': (int(info['duration'] / 10) + 1) / 100,
-                    'credits': int(info['duration'] / 10) + 1,
-                }
-                return render(request, 'subtitles/youtube_info.html', context)
-            except yt_dlp.DownloadError as e:
-                print(f"Error extracting video info: {e}")
-                error_message = 'Failed to get video info'
-                return render(request, 'subtitles/youtube_info.html', {'error_message': error_message})
-    except Exception as e:
-        print(e)
-        error_message = 'Failed to get video info'
-        return render(request, 'subtitles/youtube_info.html', {'error_message': error_message})
 
 
 @login_required
@@ -119,9 +116,25 @@ def download_subtitle(request):
                 print(f"Error extracting video info: {e}")
                 messages.error(
                     request, 'Failed to get video info. Please try again.')
-                return redirect('home')
+                return redirect('youtube_info')
     except Exception as e:
         print(e)
         messages.error(
             request, 'Failed to get video info. Please try again.')
-        return redirect('home')
+        return redirect('youtube_info')
+
+
+@login_required
+def retry_download(request, subtitle_id):
+    subtitle = Subtitle.objects.get(id=subtitle_id)
+    if subtitle.status == 'failed':
+        subtitle.status = 'scheduled'
+        subtitle.save()
+        generate_subtitle.delay(subtitle_id)
+        messages.success(
+            request, 'Your video has been successfully scheduled for processing')
+        return redirect('subtitles')
+    else:
+        messages.error(
+            request, 'This video is not in a failed state. Please try again.')
+        return redirect('subtitles')

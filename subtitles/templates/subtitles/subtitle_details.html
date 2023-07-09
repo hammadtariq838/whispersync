@@ -16,7 +16,7 @@
                 <div class="col-md-8">
                     <h5 class="card-title">{{ subtitle.title }}</h5>
                     <p class="card-text">Length: {{ subtitle.get_display_length }}</p>
-                    <p class="card-text">Status: {{ subtitle.status }}</p>
+                    <p class="card-text">Status: <strong class="text-secondary text-uppercase">{{ subtitle.status}}</strong>
                     <p class="card-text">Cost: {{ subtitle.get_display_cost }} $</p>
                     <p class="card-text">Language: {{ subtitle.language }}</p>
                     <p class="card-text">Generated: {{ subtitle.created_at | timesince }} ago</p>
@@ -25,7 +25,10 @@
                     {% endif %}
                     <!-- provide button to go back to subtitles -->
                     <a href="{% url 'subtitles' %}" class="btn btn-secondary">Back</a>
-                    {% if subtitle.file_path %}
+                    {% comment %} retry_download url in case status is failed {% endcomment %}
+                    {% if subtitle.status == 'failed' %}
+                    <a href="{% url 'retry_download' subtitle.id %}" class="btn btn-primary">Retry Download</a>
+                    {% elif subtitle.file_path %}
                     <!-- subtitle.file_path will be served using static -->
                     <a href="{% static subtitle.file_path %}" class="btn btn-primary">Download</a>
                     {% endif %}

@@ -20,6 +20,7 @@ def generate_subtitle(subtitle_id):
     audio_file_path = download_audio(subtitle)
     if audio_file_path:
         subtitle.status = 'transcribing'
+        subtitle.error = ''
         subtitle.save()
         transcript = transcribe_audio(audio_file_path, subtitle)
         if transcript:
@@ -29,6 +30,7 @@ def generate_subtitle(subtitle_id):
             with codecs.open(srt_file_path, 'w', encoding='utf-8') as subtitle_file:
                 subtitle_file.write(transcript)
             subtitle.status = 'completed'
+            subtitle.error = ''
             subtitle.file_path = f'{settings.MEDIA_URL}subtitles/{cleaned_title}.srt'
             subtitle.save()
             # charge the user
@@ -74,6 +76,8 @@ def transcribe_audio(audio_file_path, subtitle):
 
 def download_audio(subtitle_obj):
     try:
+        subtitle_obj.status = 'downloading'
+        subtitle_obj.save()
         ydl_opts = {
             'format': 'bestaudio/best',
             'outtmpl': f'{settings.MEDIA_ROOT}/audios/%(title)s.%(ext)s',
