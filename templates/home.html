@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card mt-5">
+                <div class="card-body">
+                    <h1 class="card-title">Welcome to WhisperSync</h1>
+                    <p class="card-text">WhisperSync is a powerful and innovative Django-based web application for
+                        seamless subtitling and captioning of YouTube videos.</p>
+                    <p class="card-text">With the integration of the Whisper API for transcription and translation, this
+                        platform offers a comprehensive solution for generating subtitle files in the widely supported
+                        .srt format.</p>
+                    <!-- Add your home page content here -->
+                    <p class="card-text">Wanna get your subtitles done? <a href="{% url 'verify_info' %}"
+                            class="text-primary">Click here</a> to get started!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,5 +1,20 @@
 {% extends 'base.html' %}
 
 {% block content %}
-Payment successful!
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card mt-5">
+                <div class="card-body">
+                    <h4 class="card-title">Payment Successful</h4>
+                    <p class="card-text">Thank you for your payment!</p>
+                    <p class="card-text">Your payment has been successfully processed.</p>
+                    <div class="mt-4 text-center">
+                        <a href="{% url 'home' %}" class="btn btn-primary">Back to Home</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

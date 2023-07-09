@@ -1,0 +1,53 @@
+1
+00:00:00,000 --> 00:00:04,880
+Exactly 10 years ago to the day I uploaded my first video on this YouTube channel,
+
+2
+00:00:04,880 --> 00:00:09,760
+which was a little devlog video about my first ever game project that I'd just started a few
+
+3
+00:00:09,760 --> 00:00:15,040
+months earlier. A decade later and I'm still making games and devlog videos,
+
+4
+00:00:15,040 --> 00:00:19,600
+so to celebrate this milestone I want to take you through that 10 year journey,
+
+5
+00:00:19,600 --> 00:00:23,920
+from that very first game that I made as a hobby in my university dorm room,
+
+6
+00:00:23,920 --> 00:00:29,520
+to releasing my first commercial game and becoming a full time indie game developer.
+
+7
+00:00:30,400 --> 00:00:36,240
+To start the story though we need to go back a little further than 10 years, to the end of 2012
+
+8
+00:00:36,240 --> 00:00:41,600
+where I'd just had the idea for a game that, at the time, I thought was such a good idea
+
+9
+00:00:41,600 --> 00:00:46,240
+that I needed to learn how to make games just so that I could make that game.
+
+10
+00:00:47,200 --> 00:00:51,280
+I was 20 years old at the time and I'd just finished my second year at university,
+
+11
+00:00:51,280 --> 00:00:55,760
+where I was studying computer science, so I knew the basics of programming,
+
+12
+00:00:55,760 --> 00:01:00,720
+but apart from the coursework they set us I'd never really attempted any big projects before.
+
+13
+00:01:01,760 --> 00:01:05,520
+So, full of enthusiasm about my new idea for a game, I googled
+
+

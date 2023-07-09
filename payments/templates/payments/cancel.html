@@ -1,13 +1,22 @@
-<html>
+{% extends 'base.html' %}
 
-<head>
-    <title>Checkout canceled</title>
-</head>
-
-<body>
-    <section>
-        <p>You want to change the amount? <a href="{% url 'purchase-credits' %}">Click Here</a></p>
-    </section>
-</body>
-
-</html>
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card mt-5">
+                <div class="card-body">
+                    <h4 class="card-title">Payment Cancelled</h4>
+                    <p class="card-text">Your payment has been cancelled.</p>
+                    <p class="card-text">If you have any questions or need further assistance, please contact our
+                        support team.</p>
+                    <!-- Add any additional content or instructions here -->
+                    <div class="mt-4 text-center">
+                        <a href="{% url 'home' %}" class="btn btn-primary">Back to Home</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

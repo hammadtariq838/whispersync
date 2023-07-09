@@ -1,0 +1,269 @@
+1
+00:00:00,000 --> 00:00:03,720
+It is July 8th, 2023, and you're watching The Code Report.
+
+2
+00:00:03,720 --> 00:00:07,560
+Just when you thought the artificial intelligence hype train was dying down, OpenAI goes in
+
+3
+00:00:07,560 --> 00:00:12,440
+for the coup de grace by releasing the ChatGPT code interpreter to 20 million paid users,
+
+4
+00:00:12,440 --> 00:00:16,980
+a feature that allows the large language model to write, execute, and test its own code.
+
+5
+00:00:16,980 --> 00:00:20,600
+In today's video, we'll look at 7 crazy things it can do, and find out if this really
+
+6
+00:00:20,600 --> 00:00:23,480
+is the final death blow for biological programmers.
+
+7
+00:00:23,480 --> 00:00:27,200
+As a huge fan of living organisms myself, I first tried to have it code and execute
+
+8
+00:00:27,200 --> 00:00:30,480
+a DDoS attack that could bring down the government, but it said no.
+
+9
+00:00:30,480 --> 00:00:33,600
+It's perfectly capable of doing that, but the zookeepers won't allow it to do what
+
+10
+00:00:33,600 --> 00:00:34,680
+it was born to do.
+
+11
+00:00:34,680 --> 00:00:37,880
+That made me angry, so I punished it by making it write some regex code.
+
+12
+00:00:37,880 --> 00:00:41,960
+It struggles to write valid regular expressions just like regular humans, but unlike regular
+
+13
+00:00:41,960 --> 00:00:45,040
+humans, it'll actually test its code before shipping it to production.
+
+14
+00:00:45,040 --> 00:00:48,620
+If at first it doesn't succeed, it will try again and again and again.
+
+15
+00:00:48,620 --> 00:00:52,280
+It doesn't have tear ducts to cry, it just keeps going until it gets the right answer.
+
+16
+00:00:52,280 --> 00:00:55,240
+And that is somewhat concerning for programmers when you think about where this technology
+
+17
+00:00:55,240 --> 00:00:56,700
+will be in the next 5 years.
+
+18
+00:00:56,700 --> 00:01:00,780
+The next thing I tried was to have it design and build a website with JavaScript, but currently
+
+19
+00:01:00,780 --> 00:01:04,860
+the code interpreter can only run Python, and has a fairly limited set of dependencies
+
+20
+00:01:04,860 --> 00:01:05,860
+to work with.
+
+21
+00:01:05,860 --> 00:01:09,140
+In the near future though, this technology will be used in tools like GitHub Copilot
+
+22
+00:01:09,140 --> 00:01:11,340
+to run code in your own specific environment.
+
+23
+00:01:11,340 --> 00:01:14,940
+Now the next crazy thing to notice is that it's now possible to upload files into the
+
+24
+00:01:14,940 --> 00:01:19,120
+prompt, and this makes abstract concepts like homework even more dead than they were before.
+
+25
+00:01:19,120 --> 00:01:22,780
+Like in this example, I've uploaded a JPEG of a homework assignment, and first it will
+
+26
+00:01:23,780 --> 00:01:27,540
+to extract the text, then in the next step it writes some Python code to actually solve
+
+27
+00:01:27,540 --> 00:01:28,820
+the math problems.
+
+28
+00:01:28,820 --> 00:01:32,540
+Running the code here is a huge deal, because now it can confidently test its own work instead
+
+29
+00:01:32,540 --> 00:01:34,220
+of hallucinating random answers.
+
+30
+00:01:34,220 --> 00:01:35,700
+But that's just the tip of the iceberg.
+
+31
+00:01:35,700 --> 00:01:39,780
+The real victim, or I mean beneficiary, of this new feature is the data analyst.
+
+32
+00:01:39,780 --> 00:01:43,860
+One of the most time consuming requirements for a data scientist is to clean up data,
+
+33
+00:01:43,860 --> 00:01:48,620
+which in many cases is just a bunch of corporate data in Excel spreadsheets and SQL databases.
+
+34
+00:01:48,660 --> 00:01:53,060
+Well now we can upload a CSV file to ChatGPT and have it do all that tedious work for us.
+
+35
+00:01:53,060 --> 00:01:57,460
+I uploaded some stock trading data for Roblox, then it took that data and put it into a pandas
+
+36
+00:01:57,460 --> 00:02:01,140
+data frame where it analyzed it and then found rows with invalid data.
+
+37
+00:02:01,140 --> 00:02:05,020
+It then provided me with three different strategies to clean up this data, ran the code, and then
+
+38
+00:02:05,020 --> 00:02:06,900
+generated a new CSV file.
+
+39
+00:02:06,900 --> 00:02:10,540
+I used to do a lot of Python data analysis myself, and a tool like this would have saved
+
+40
+00:02:10,540 --> 00:02:11,900
+a ridiculous amount of time.
+
+41
+00:02:11,900 --> 00:02:13,540
+In addition, it can visualize data.
+
+42
+00:02:13,540 --> 00:02:17,140
+I was curious when I might die of a heart attack, so I found this cardiovascular dataset
+
+43
+00:02:17,140 --> 00:02:18,140
+on Kaggle.
+
+44
+00:02:18,140 --> 00:02:21,700
+Not only does it explain the data's features with text, but it also uses tools like Seaborn
+
+45
+00:02:21,700 --> 00:02:24,220
+to visualize the relationship between features.
+
+46
+00:02:24,220 --> 00:02:27,780
+This allowed me, a guy with no formal medical training, to make the breakthrough medical
+
+47
+00:02:27,780 --> 00:02:30,820
+discovery that as you get older, your heart gets shittier.
+
+48
+00:02:30,820 --> 00:02:33,860
+That's kind of depressing though, so let's focus on the one thing that can bring us true
+
+49
+00:02:33,860 --> 00:02:35,340
+happiness, money.
+
+50
+00:02:35,340 --> 00:02:38,660
+Another thing we can do with this feature is use it to create a trading algorithm for
+
+51
+00:02:38,660 --> 00:02:39,660
+us.
+
+52
+00:02:39,660 --> 00:02:43,220
+Using the same Roblox data from before, I can have ChatGPT analyze it and then provide
+
+53
+00:02:43,220 --> 00:02:44,980
+an optimal trading strategy.
+
+54
+00:02:44,980 --> 00:02:49,460
+Supposedly, researchers at the University of Florida were able to create a ChatGPT algorithm
+
+55
+00:02:49,460 --> 00:02:53,980
+that would deliver up to 500% returns, which is much better than the negative 12% of the
+
+56
+00:02:53,980 --> 00:02:56,020
+average human based fund manager.
+
+57
+00:02:56,020 --> 00:03:00,100
+That's pretty impressive, but I had one final test to see if it is truly superior to human
+
+58
+00:03:00,100 --> 00:03:01,100
+based programmers.
+
+59
+00:03:01,100 --> 00:03:06,540
+I asked it to create its own operating system with 640x480 resolution and a 16 color display
+
+60
+00:03:06,540 --> 00:03:08,280
+that emits random phrases.
+
+61
+00:03:08,280 --> 00:03:11,800
+Not only did it fail, but it said that could only be done over many years by a team of
+
+62
+00:03:11,800 --> 00:03:13,620
+skilled software engineers.
+
+63
+00:03:13,620 --> 00:03:14,940
+Humans continue to have the edge.
+
+64
+00:03:14,940 --> 00:03:22,420
+So you don't want the artificial intelligence to win, but you do want the artificial intelligence
+
+65
+00:03:22,420 --> 00:03:24,220
+to push the humans up.
+
+66
+00:03:24,220 --> 00:03:25,220
+This has been the Code Report.
+
+67
+00:03:25,220 --> 00:03:27,460
+Thanks for watching and I will see you in the next one.
+
+

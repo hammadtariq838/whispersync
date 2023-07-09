@@ -1,14 +1,16 @@
 {% load static %}
 
-
 <!doctype html>
 <html lang="en">
 
 
 <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- favicon -->
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -56,7 +58,12 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
+            <!-- <a class="navbar-brand" href="{% url 'home' %}">
+                WhisperSync
+            </a> -->
             <a class="navbar-brand" href="{% url 'home' %}">
+                <img src="{% static 'favicon.ico' %}" alt="WhisperSync" width="30" height="30"
+                    class="d-inline-block align-text-top">
                 WhisperSync
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
